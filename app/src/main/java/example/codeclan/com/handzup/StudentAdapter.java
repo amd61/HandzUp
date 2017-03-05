@@ -68,11 +68,15 @@ public class StudentAdapter extends BaseAdapter{
 
         //attendanceCheckbox.setChecked(false);
 
+        rowView.setTag(position);
+
         rowView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(v.getContext(), "Long press",
-                        Toast.LENGTH_LONG).show();
+                int studentID = (int) getItemId((int) v.getTag());
+                db.deleteStudent(db.getStudent(studentID));
+                db.close();
+                notifyDataSetChanged();
                 return true;
             }
         });

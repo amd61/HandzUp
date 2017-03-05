@@ -83,9 +83,6 @@ public class StudentActivity extends AppCompatActivity {
         dialogBuilder.setMessage("Enter text below");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                //do something with studentName.getText().toString();
-                Toast.makeText(StudentActivity.this,(String) studentName.getText().toString(),
-                        Toast.LENGTH_LONG).show();
                 addStudent(studentName.getText().toString());
             }
         });
