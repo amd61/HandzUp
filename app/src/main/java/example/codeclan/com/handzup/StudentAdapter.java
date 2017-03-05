@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +46,25 @@ public class StudentAdapter extends BaseAdapter{
         View rowView = layoutInflater.inflate(R.layout.student_view, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.txtName);
         CheckBox attendanceCheckbox = (CheckBox) rowView.findViewById(R.id.chkAttended);
+        attendanceCheckbox.setTag(position);
         //textView.setText(data.get(position));
         Log.d("DEBUG", "getting for position " + position);
 
         Student s = db.getStudent((int) getItemId(position));
         textView.setText(s.getName());
         attendanceCheckbox.setChecked(s.getAttended());
+
+        attendanceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int studentID = (int) getItemId((int) buttonView.getTag());
+                Student studentToUpdate;
+                studentToUpdate = db.getStudent(studentID);
+                studentToUpdate.setAttended(isChecked);
+                db.updateStudent(studentToUpdate);
+                db.close();
+            }
+        });
 
         //attendanceCheckbox.setChecked(false);
 
