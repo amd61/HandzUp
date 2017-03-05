@@ -3,11 +3,14 @@ package example.codeclan.com.handzup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -25,6 +28,7 @@ public class StudentActivity extends AppCompatActivity {
     ListView studentList;
     ArrayList<String> studentArrayList;
     StudentAdapter adapter;
+    StudentDB db = new StudentDB(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +41,15 @@ public class StudentActivity extends AppCompatActivity {
 
 
 
-        String[] studentNames = new String[] {"Alice", "Bob", "Claire", "Dave"};
-        studentArrayList = new ArrayList<String>();
-        for (String name : studentNames) {
-            studentArrayList.add(name);
-        }
+//        String[] studentNames = new String[] {"Alice", "Bob", "Claire", "Dave"};
+//        studentArrayList = new ArrayList<String>();
+//        for (String name : studentNames) {
+//            studentArrayList.add(name);
+//        }
 
-        adapter = new StudentAdapter(this, studentArrayList);
+        adapter = new StudentAdapter(this);
         studentList.setAdapter(adapter);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -57,7 +62,10 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     public void addStudent(String studentName) {
-        studentArrayList.add(studentName);
+        //studentArrayList.add(studentName);
+        Student newStudent = new Student(studentName);
+        newStudent.setAttended(false);
+        db.addStudent(newStudent);
         adapter.notifyDataSetChanged();
 
     }

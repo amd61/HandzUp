@@ -1,7 +1,7 @@
 package example.codeclan.com.handzup;
 
 /**
- * Created by user on 04/03/2017.
+ * Created by user on 05/03/2017.
  */
 
 public class Student {
@@ -9,10 +9,8 @@ public class Student {
     String name;
     boolean attended;
 
-    public Student(String name)
-    {
+    public Student(String name) {
         this.name = name;
-        this.attended = false;
     }
 
     public void setAttended(boolean attended)
@@ -20,8 +18,23 @@ public class Student {
         this.attended = attended;
     }
 
+    public void setID(int ID){
+        this.ID = ID;
+
+    }
+
     public boolean getAttended()
     {
         return this.attended;
+    }
+
+    public int getID()
+    {
+        return this.ID;
+    }
+
+
+    public String getName() {
+        return this.name;
     }
 }
